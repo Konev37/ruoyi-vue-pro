@@ -14,10 +14,32 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+// 描述 API 文档中的字段信息，description 属性提供了字段的详细描述。
 @Schema(description = "管理后台 - 账号密码登录 Request VO，如果登录并绑定社交用户，需要传递 social 开头的参数")
+// 这是 Lombok 提供的注解，自动生成所有字段的 getter、setter 方法，以及 toString、equals 和 hashCode 方法。
 @Data
+// 这是 Lombok 提供的注解，自动生成无参构造方法。
 @NoArgsConstructor
+// 这是 Lombok 提供的注解，自动生成全参构造方法。
 @AllArgsConstructor
+// 这是 Lombok 提供的注解，自动生成建造者模式的 Builder 类。
+// 使用@Builder注解（链式调用）：
+//      AuthLoginReqVO authLoginReqVO = AuthLoginReqVO.builder()
+//          .username("yudaoyuanma")
+//          .password("buzhidao")
+//          .captchaVerification("PfcH6mgr8tpXuMWFjvW6YVaqrswIuwmWI5dsVZSg7sGpWtDCUbHuDEXl3cFB1+VvCC/rAkSwK8Fad52FSuncVg==")
+//          .socialType(10)
+//          .socialCode("1024")
+//          .socialState("9b2ffbc1-7425-4155-9894-9d5c08541d62")
+//          .build();
+// 不使用@Builder注解：
+//        AuthLoginReqVO authLoginReqVO = new AuthLoginReqVO();
+//        authLoginReqVO.setUsername("yudaoyuanma");
+//        authLoginReqVO.setPassword("buzhidao");
+//        authLoginReqVO.setCaptchaVerification("PfcH6mgr8tpXuMWFjvW6YVaqrswIuwmWI5dsVZSg7sGpWtDCUbHuDEXl3cFB1+VvCC/rAkSwK8Fad52FSuncVg==");
+//        authLoginReqVO.setSocialType(10);
+//        authLoginReqVO.setSocialCode("1024");
+//        authLoginReqVO.setSocialState("9b2ffbc1-7425-4155-9894-9d5c08541d62");
 @Builder
 public class AuthLoginReqVO {
 
@@ -56,6 +78,7 @@ public class AuthLoginReqVO {
      */
     public interface CodeEnableGroup {}
 
+    // 用于 Java Bean Validation 中，指定一个布尔方法必须返回 true 才能通过验证
     @AssertTrue(message = "授权码不能为空")
     public boolean isSocialCodeValid() {
         return socialType == null || StrUtil.isNotEmpty(socialCode);
