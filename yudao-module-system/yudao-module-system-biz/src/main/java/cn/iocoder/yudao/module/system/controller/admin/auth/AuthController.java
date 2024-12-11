@@ -39,13 +39,19 @@ import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.convertSet;
 import static cn.iocoder.yudao.framework.security.core.util.SecurityFrameworkUtils.getLoginUserId;
 
+// 为当前类提供 Swagger API 文档的标签信息（标签分组）
 @Tag(name = "管理后台 - 认证")
 @RestController
 @RequestMapping("/system/auth")
+// TODO[学习] 参数校验，比如分组校验、嵌套校验等，弄清楚 @Validated 和 @Valid 的区别
 @Validated
+// Lombok 提供的一个注解，用于自动生成一个名为 log 的 org.slf4j.Logger 对象。
+// 这样可以方便地在类中使用 log 对象进行日志记录，而不需要手动创建 Logger 实例
 @Slf4j
 public class AuthController {
 
+    // 依赖注入，自动将指定的 bean 注入到类的字段、setter 方法或构造函数中。
+    // 这里将 AdminAuthService 类型的 bean 注入到 authService 字段中
     @Resource
     private AdminAuthService authService;
     @Resource
@@ -64,7 +70,11 @@ public class AuthController {
 
     @PostMapping("/login")
     @PermitAll
+    // 添加在 Controller 方法上，标记它是一个 API 操作（用于描述一个具体的操作）
+    // summary：简要概述
+    // description：详细描述
     @Operation(summary = "使用账号密码登录")
+    // @RequestBody 注解，用于将 HTTP 请求体中的 JSON 数据绑定到方法参数上。
     public CommonResult<AuthLoginRespVO> login(@RequestBody @Valid AuthLoginReqVO reqVO) {
         return success(authService.login(reqVO));
     }
