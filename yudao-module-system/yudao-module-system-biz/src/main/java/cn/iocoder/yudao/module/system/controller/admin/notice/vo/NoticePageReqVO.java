@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 
 @Schema(description = "管理后台 - 通知公告分页 Request VO")
 @Data
+// callSuper = true 表示生成的 equals 和 hashCode 方法会调用父类的方法
+// 用于确保父类的字段也被包含在 equals 和 hashCode 方法的比较和计算中
 @EqualsAndHashCode(callSuper = true)
 public class NoticePageReqVO extends PageParam {
 
