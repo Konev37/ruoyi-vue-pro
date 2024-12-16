@@ -11,6 +11,8 @@ import org.apache.ibatis.type.JdbcType;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+// Easy-Trans 用于数据翻译，比如字典翻译（把前端选择的 string 转换成对应的枚举值并自动赋值到对应属性上）
+
 /**
  * 基础实体对象
  *
@@ -21,6 +23,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @JsonIgnoreProperties(value = "transMap") // 由于 Easy-Trans 会添加 transMap 属性，避免 Jackson 在 Spring Cache 反序列化报错
+// TransPojo 接口用于支持 Easy-Trans 框架的转换功能
 public abstract class BaseDO implements Serializable, TransPojo {
 
     /**
